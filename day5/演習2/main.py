@@ -11,6 +11,7 @@ import pickle
 import time
 import great_expectations as gx
 
+
 class DataLoader:
     """データロードを行うクラス"""
 
@@ -207,7 +208,7 @@ class ModelTester:
     def compare_with_accuracy(current_metrics, baseline_accuracy=0.5):
         """ベースラインと比較する"""
         return current_metrics["accuracy"] >= baseline_accuracy
-    
+
     @staticmethod
     def compare_with_inference_time(current_metrics, baseline_time=0.02):
         """ベースラインと比較する"""
@@ -286,14 +287,13 @@ if __name__ == "__main__":
     model = ModelTester.train_model(X_train, y_train, model_params)
     metrics = ModelTester.evaluate_model(model, X_test, y_test)
 
-    #精度が合格ラインに達したかの判定
-    accuracy_ok=ModelTester.compare_with_accuracy(metrics)
+    # 精度が合格ラインに達したかの判定
+    accuracy_ok = ModelTester.compare_with_accuracy(metrics)
     print(f"精度: {metrics['accuracy']:.4f}")
     print(f"精度検証: {'合格' if accuracy_ok else '不合格'}")
 
-
-    #推論時間が合格ラインに達したかの判定
-    time_ok= ModelTester.compare_with_inference_time(metrics)
+    # 推論時間が合格ラインに達したかの判定
+    time_ok = ModelTester.compare_with_inference_time(metrics)
     print(f"推論時間: {metrics['inference_time']:.4f}秒")
     print(f"推論時間検証: {'合格' if time_ok else '不合格'}")
 
